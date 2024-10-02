@@ -2,12 +2,13 @@
 #include "serviceDone.h"
 #include <iostream>
 #include <string>
+#include <map>
 #include <fstream>
 
 using namespace std;
 
-template class Database<string>;
 template class Database<serviceDone>;
+
 
 template<typename T>
 Database<T>::Database(const string& path) {
@@ -36,7 +37,7 @@ vector<T> Database<T>::readAll() {
         cerr << "File not found!";
         exit(1);
     }
-    vector<T> _list;
+    vector<T>_list;
     T tempObject;
     while (inputFile >> tempObject) {
         _list.push_back(tempObject);

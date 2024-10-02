@@ -9,6 +9,4 @@ Member::~Member()
 {
     //dtor
 }
-string Member::getID(){
-    return this->id;
-}
+

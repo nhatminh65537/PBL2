@@ -17,8 +17,10 @@ class Database
         void update(const T& _old,
                     const T& _new);
         void append(const T& content);
+
     private:
         string path;
+        vector<T>_list;
 };
 
 #endif // DATABASE_H

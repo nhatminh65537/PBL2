@@ -1,24 +1,33 @@
 #ifndef MEMBER_H
 #define MEMBER_H
-
 #include <string>
+#include "Identifiable.h"
 
 using namespace std;
 
-class Member
-{
+class Member : public Identifiable {
     public:
         Member();
         ~Member();
-        static int count;
-        Member* setID(string id);
-        Member* setFirstName(string firstName);
 
-        string getID();
+        string getfirstName();
+        void setfirstName(const string& val);
+        string getlastName();
+        void setlastName(const string& val);
+        bool getgender();
+        void setgender(const bool& val);
+        int getage();
+        void setage(const int& val);
+        string getphoneNumber();
+        void setphoneNumber(const string& val);
+        string getusername();
+        void setusername(const string& val);
+        string getpassword();
+        void setpassword(const string& val);
+
     protected:
 
     private:
-        string id;
         string firstName;
         string lastName;
         bool gender;

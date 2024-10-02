@@ -2,16 +2,19 @@
 #define SERVICEDONE_H
 #include <string>
 #include <iostream>
+#include "Identifiable.h"
 
 using namespace std;
 
-class serviceDone
+class serviceDone : public Identifiable
 {
     public:
         serviceDone();
         ~serviceDone();
         friend ostream& operator<<(ostream& os,const serviceDone& obj);
         friend istream& operator>>(istream& is,serviceDone& obj);
+        string getID() const override;
+        void setID(const string&) override;
     protected:
 
     private:

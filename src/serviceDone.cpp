@@ -18,6 +18,14 @@ serviceDone::~serviceDone()
     //dtor
 }
 
+void serviceDone::setID(const string& id){
+    this->serviceDoneID = id;
+}
+
+string serviceDone::getID() const{
+    return this->serviceDoneID;
+}
+
 ostream& operator<<(ostream& os, const serviceDone& obj){
     os << obj.serviceDoneID << " " << obj.customerID << " " << obj.workerID
         << " " << obj.serviceID << " " << obj.feedback << " " << obj.isBooked << " " << obj.isPerfect;
