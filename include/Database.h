@@ -9,17 +9,16 @@ template<typename T>
 class Database
 {
     public:
+        Database();
         Database(const string& path);
         ~Database();
-        void setPath(const string& path);
-        string getPath();
-        vector<T> readAll();
-        void update(const T& _old,
-                    const T& _new);
-        void append(const T& content);
-
+        void Update(const T& _old,const T& _new);
+        void Append(const T& content);
+        int Search(const string& searchID);
+        void Show();
+        int Count();
     private:
-        string path;
+        vector<T> ReadAll(const string& path);
         vector<T>_list;
 };
 

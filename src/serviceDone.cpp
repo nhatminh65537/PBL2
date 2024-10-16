@@ -18,11 +18,11 @@ serviceDone::~serviceDone()
     //dtor
 }
 
-void serviceDone::setID(const string& id){
+void serviceDone::SetID(const string& id){
     this->serviceDoneID = id;
 }
 
-string serviceDone::getID() const{
+string serviceDone::GetID() const{
     return this->serviceDoneID;
 }
 
@@ -35,4 +35,12 @@ istream& operator>>(istream& is,serviceDone& obj){
     is >> obj.serviceDoneID >> obj.customerID >> obj.workerID
         >> obj.serviceID >> obj.feedback >> obj.isBooked >> obj.isPerfect;
     return is;
+}
+
+bool operator<(const serviceDone& a,const serviceDone& b){
+    return a.serviceDoneID < b.serviceDoneID;
+}
+
+bool operator==(const serviceDone& a,const serviceDone& b){
+    return a.serviceDoneID == b.serviceDoneID;
 }

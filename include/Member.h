@@ -8,7 +8,7 @@ using namespace std;
 class Member : public Identifiable {
     public:
         Member();
-        ~Member();
+        virtual ~Member();
 
         string getfirstName();
         void setfirstName(const string& val);

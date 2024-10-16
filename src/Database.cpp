@@ -4,37 +4,27 @@
 #include <string>
 #include <map>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
 template class Database<serviceDone>;
 
-
 template<typename T>
 Database<T>::Database(const string& path) {
-    this->path = path;
+    this->_list = ReadAll(path);
 }
 
 template<typename T>
 Database<T>::~Database() {
-    cout << "Changes of database completed!\n";
+
 }
 
 template<typename T>
-void Database<T>::setPath(const string& path) {
-    this->path = path;
-}
-
-template<typename T>
-string Database<T>::getPath() {
-    return this->path;
-}
-
-template<typename T>
-vector<T> Database<T>::readAll() {
-    ifstream inputFile(this->path.c_str(), ios::in);
+vector<T> Database<T>::ReadAll(const string& path) {
+    ifstream inputFile(path.c_str(), ios::in);
     if (!inputFile.is_open()) {
-        cerr << "File not found!";
+        cerr << "File " << path << " not found!";
         exit(1);
     }
     vector<T>_list;
@@ -43,16 +33,35 @@ vector<T> Database<T>::readAll() {
         _list.push_back(tempObject);
     }
     inputFile.close();
+    sort(_list.begin(),_list.end());
     return _list;
 }
 
+// append new data to the end of list.
 template<typename T>
-void Database<T>::append(const T& content) {
-    ofstream outputFile(this->path.c_str(), ios::app);
-    if (!outputFile.is_open()) {
-        cerr << "File not found!";
-        exit(1);
+void Database<T>::Append(const T& content) {
+    this->_list.push_back(content);
+}
+
+template<typename T>
+int Database<T>::Search(const string& searchID){
+    int lo = 0,hi = this->Count();
+    while (lo <= hi){
+        int mid = (lo+hi)/2;
+        if (this->_list[mid].GetID() == searchID) return mid;
+        else if (this->_list[mid].GetID() < searchID) lo = mid+1;
+        else hi = mid-1;
     }
-    outputFile << content << '\n';
-    outputFile.close();
+    return -1;
+}
+template<typename T>
+void Database<T>::Show(){
+    for (int i = 0;i < this->_list.size();++i){
+        cout << this->_list[i] << '\n';
+    }
+}
+
+template<typename T>
+int Database<T>::Count(){
+    return this->_list.size();
 }

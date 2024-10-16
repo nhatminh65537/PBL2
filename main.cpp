@@ -12,7 +12,9 @@ const string SERVICE_DONE_FILE = "database/service-done.txt";
 int main()
 {
     serviceDone a;
-    a.setID("1232");
-    cout << a.getID();
+    Database<serviceDone> myList(SERVICE_DONE_FILE);
+    myList.Show();
+    cout << myList.Count() << '\n';
+    cout << myList.Search("1") << '\n';
     return 0;
 }

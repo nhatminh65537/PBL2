@@ -13,8 +13,10 @@ class serviceDone : public Identifiable
         ~serviceDone();
         friend ostream& operator<<(ostream& os,const serviceDone& obj);
         friend istream& operator>>(istream& is,serviceDone& obj);
-        string getID() const override;
-        void setID(const string&) override;
+        friend bool operator<(const serviceDone& a,const serviceDone& b);
+        string GetID() const override;
+        void SetID(const string&) override;
+        void Show();
     protected:
 
     private:
