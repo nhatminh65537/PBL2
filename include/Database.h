@@ -12,13 +12,17 @@ class Database
         Database();
         Database(const string& path);
         ~Database();
-        void Update(const T& _old,const T& _new);
+        void Update(const string& ID,const T& newObj);
         void Append(const T& content);
         int Search(const string& searchID);
         void Show();
         int Count();
     private:
-        vector<T> ReadAll(const string& path);
+        // 2 functions ReadAll and Save shouldn't be allowed to call outside of the class.
+        // as we are gonna to call them once. When create the list and delete the list.
+        vector<T> ReadAll();
+        void Save();
+        string path;
         vector<T>_list;
 };
 

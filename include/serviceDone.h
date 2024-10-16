@@ -10,6 +10,9 @@ class serviceDone : public Identifiable
 {
     public:
         serviceDone();
+        serviceDone(const string& serviceDoneID, const string& customerID,const string& workerID,
+                    const string& serviceID,const string& feedback,const bool& isBooked,
+                    const bool& isPerfect);
         ~serviceDone();
         friend ostream& operator<<(ostream& os,const serviceDone& obj);
         friend istream& operator>>(istream& is,serviceDone& obj);

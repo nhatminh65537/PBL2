@@ -12,19 +12,20 @@ template class Database<serviceDone>;
 
 template<typename T>
 Database<T>::Database(const string& path) {
-    this->_list = ReadAll(path);
+    this->path = path;
+    this->_list = ReadAll();
 }
 
 template<typename T>
 Database<T>::~Database() {
-
+    this->Save();
 }
 
 template<typename T>
-vector<T> Database<T>::ReadAll(const string& path) {
-    ifstream inputFile(path.c_str(), ios::in);
+vector<T> Database<T>::ReadAll() {
+    ifstream inputFile(this->path.c_str(), ios::in);
     if (!inputFile.is_open()) {
-        cerr << "File " << path << " not found!";
+        cerr << "File " << this->path << " not found!";
         exit(1);
     }
     vector<T>_list;
@@ -37,7 +38,27 @@ vector<T> Database<T>::ReadAll(const string& path) {
     return _list;
 }
 
-// append new data to the end of list.
+template<typename T>
+void Database<T>::Save() {
+    ofstream outputFile(this->path.c_str());
+    if (!outputFile.is_open()) {
+        cerr << "File " << this->path << " not found!";
+        exit(1);
+    }
+    sort(this->_list.begin(),this->_list.end());
+    for (const T& obj : this->_list){
+        outputFile << obj << '\n';
+    }
+    outputFile.close();
+}
+
+template<typename T>
+void Database<T>::Update(const string& ID,const T& newObj){
+    int idx = this->Search(ID);
+    if (idx == -1) return;
+    this->_list[idx] = newObj;
+}
+
 template<typename T>
 void Database<T>::Append(const T& content) {
     this->_list.push_back(content);

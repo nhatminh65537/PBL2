@@ -13,6 +13,18 @@ serviceDone::serviceDone()
     this->isPerfect = 0;
 }
 
+serviceDone::serviceDone(const string& serviceDoneID, const string& customerID,const string& workerID,
+                         const string& serviceID,const string& feedback,const bool& isBooked,
+                         const bool& isPerfect){
+    this->serviceDoneID = serviceDoneID;
+    this->customerID = customerID;
+    this->workerID = workerID;
+    this->serviceID = serviceID;
+    this->feedback = feedback;
+    this->isBooked = isBooked;
+    this->isPerfect = isBooked;
+}
+
 serviceDone::~serviceDone()
 {
     //dtor
@@ -28,7 +40,8 @@ string serviceDone::GetID() const{
 
 ostream& operator<<(ostream& os, const serviceDone& obj){
     os << obj.serviceDoneID << " " << obj.customerID << " " << obj.workerID
-        << " " << obj.serviceID << " " << obj.feedback << " " << obj.isBooked << " " << obj.isPerfect;
+        << " " << obj.serviceID << " " << obj.feedback
+        << " " << obj.isBooked << " " << obj.isPerfect;
     return os;
 }
 istream& operator>>(istream& is,serviceDone& obj){
@@ -39,8 +52,4 @@ istream& operator>>(istream& is,serviceDone& obj){
 
 bool operator<(const serviceDone& a,const serviceDone& b){
     return a.serviceDoneID < b.serviceDoneID;
-}
-
-bool operator==(const serviceDone& a,const serviceDone& b){
-    return a.serviceDoneID == b.serviceDoneID;
 }
