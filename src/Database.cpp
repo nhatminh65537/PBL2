@@ -2,7 +2,6 @@
 #include "serviceDone.h"
 #include <iostream>
 #include <string>
-#include <map>
 #include <fstream>
 #include <algorithm>
 
@@ -14,6 +13,7 @@ template<typename T>
 Database<T>::Database(const string& path) {
     this->path = path;
     this->_list = ReadAll();
+    initAttributeMap();
 }
 
 template<typename T>
@@ -60,6 +60,20 @@ void Database<T>::Update(const string& ID,const T& newObj){
 }
 
 template<typename T>
+void Database<T>::Update(const string& ID,const string& attributeName, const string& newVal){
+    int idx = this->Search(ID);
+    if (idx == -1){
+        cerr << "ID not found!\n";
+        return;
+    }
+    if (attributeMap.find(attributeName) == attributeMap.end()){
+        cerr << "Attribute not found!\n";
+        return;
+    }
+    attributeMap[attributeName](this->_list[idx],newVal);
+}
+
+template<typename T>
 void Database<T>::Append(const T& content) {
     this->_list.push_back(content);
 }
@@ -85,4 +99,24 @@ void Database<T>::Show(){
 template<typename T>
 int Database<T>::Count(){
     return this->_list.size();
+}
+
+template<>
+void Database<serviceDone>::initAttributeMap(){
+    // lambda function
+    attributeMap["serviceDoneID"] = [](serviceDone& obj,const string& newVal){
+        obj.SetID(newVal);
+    };
+    attributeMap["customerID"] = [](serviceDone& obj,const string& newVal){
+        obj.SetCustomerID(newVal);
+    };
+    attributeMap["workerID"] = [](serviceDone& obj,const string& newVal){
+        obj.SetWorkerID(newVal);
+    };
+    attributeMap["serviceID"] = [](serviceDone& obj,const string& newVal){
+        obj.SetServiceID(newVal);
+    };
+    attributeMap["feedback"] = [](serviceDone& obj,const string& newVal){
+        obj.SetFeedBack(newVal);
+    };
 }

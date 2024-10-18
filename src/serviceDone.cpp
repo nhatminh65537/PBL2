@@ -38,6 +38,35 @@ string serviceDone::GetID() const{
     return this->serviceDoneID;
 }
 
+string serviceDone::GetCustomerID() const{
+    return this->customerID;
+}
+void serviceDone::SetCustomerID(const string& customerID){
+    this->customerID = customerID;
+}
+
+string serviceDone::GetWorkerID() const{
+    return this->workerID;
+}
+void serviceDone::SetWorkerID(const string& workerID){
+    this->workerID = workerID;
+}
+string serviceDone::GetServiceID() const{
+    return this->serviceID;
+}
+void serviceDone::SetServiceID(const string& serviceID){
+    this->serviceID = serviceID;
+}
+
+void serviceDone::SetFeedBack(const string& feedback){
+    this->feedback = feedback;
+}
+
+string serviceDone::GetFeedBack() const{
+    return this->feedback;
+}
+
+
 ostream& operator<<(ostream& os, const serviceDone& obj){
     os << obj.serviceDoneID << " " << obj.customerID << " " << obj.workerID
         << " " << obj.serviceID << " " << obj.feedback
@@ -51,5 +80,8 @@ istream& operator>>(istream& is,serviceDone& obj){
 }
 
 bool operator<(const serviceDone& a,const serviceDone& b){
-    return a.serviceDoneID < b.serviceDoneID;
+    string s = a.serviceDoneID;
+    string r = b.serviceDoneID;
+    if (s.size() == r.size())   return s<r;
+    return s.size()<r.size();
 }

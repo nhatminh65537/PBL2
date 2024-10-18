@@ -19,6 +19,14 @@ class serviceDone : public Identifiable
         friend bool operator<(const serviceDone& a,const serviceDone& b);
         string GetID() const override;
         void SetID(const string&) override;
+        string GetCustomerID() const;
+        void SetCustomerID(const string&);
+        string GetWorkerID() const;
+        void SetWorkerID(const string&);
+        string GetServiceID() const;
+        void SetServiceID(const string&);
+        string GetFeedBack() const;
+        void SetFeedBack(const string&);
         void Show();
     protected:
 
@@ -28,6 +36,7 @@ class serviceDone : public Identifiable
         string workerID;
         string serviceID;
         string feedback;
+        // Try using alternative for these.
         bool isBooked;
         bool isPerfect;
         //Datetime time;
