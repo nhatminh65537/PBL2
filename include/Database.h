@@ -13,10 +13,11 @@ class Database
         Database();
         Database(const string& path);
         ~Database();
-        void Update(const string& ID,const T& newObj);
-        void Update(const string& ID,const string& attributeName,const string& newVal);
-        void Append(const T& content);
-        int Search(const string& searchID);
+        const T& operator[](const string&);
+        void Update(const string&,const T&);
+        void Update(const string&,const string&,const string&);
+        void Append(const T&);
+        int Search(const string&);
         void Show();
         int Count();
     private:
@@ -24,7 +25,7 @@ class Database
         // as we are gonna to call them once. When create the list and delete the list.
         vector<T> ReadAll();
         void Save();
-        string path;
+        const string path;
         vector<T>_list;
         map<string,function<void(T&,const string&)>>attributeMap;
         void initAttributeMap();

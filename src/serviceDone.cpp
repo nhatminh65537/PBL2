@@ -8,21 +8,18 @@ serviceDone::serviceDone()
     this->customerID = "null";
     this->workerID = "null";
     this->serviceID = "null";
-    this->feedback = "null";
+    this->feedback = "\"null\"";
     this->isBooked = 0;
-    this->isPerfect = 0;
 }
 
 serviceDone::serviceDone(const string& serviceDoneID, const string& customerID,const string& workerID,
-                         const string& serviceID,const string& feedback,const bool& isBooked,
-                         const bool& isPerfect){
+                         const string& serviceID,const string& feedback,const bool& isBooked){
     this->serviceDoneID = serviceDoneID;
     this->customerID = customerID;
     this->workerID = workerID;
     this->serviceID = serviceID;
     this->feedback = feedback;
     this->isBooked = isBooked;
-    this->isPerfect = isBooked;
 }
 
 serviceDone::~serviceDone()
@@ -34,24 +31,24 @@ void serviceDone::SetID(const string& id){
     this->serviceDoneID = id;
 }
 
-string serviceDone::GetID() const{
+const string& serviceDone::GetID() const{
     return this->serviceDoneID;
 }
 
-string serviceDone::GetCustomerID() const{
+const string& serviceDone::GetCustomerID() const{
     return this->customerID;
 }
 void serviceDone::SetCustomerID(const string& customerID){
     this->customerID = customerID;
 }
 
-string serviceDone::GetWorkerID() const{
+const string& serviceDone::GetWorkerID() const{
     return this->workerID;
 }
 void serviceDone::SetWorkerID(const string& workerID){
     this->workerID = workerID;
 }
-string serviceDone::GetServiceID() const{
+const string& serviceDone::GetServiceID() const{
     return this->serviceID;
 }
 void serviceDone::SetServiceID(const string& serviceID){
@@ -62,20 +59,25 @@ void serviceDone::SetFeedBack(const string& feedback){
     this->feedback = feedback;
 }
 
-string serviceDone::GetFeedBack() const{
+const string& serviceDone::GetFeedBack() const{
     return this->feedback;
 }
 
 
 ostream& operator<<(ostream& os, const serviceDone& obj){
     os << obj.serviceDoneID << " " << obj.customerID << " " << obj.workerID
-        << " " << obj.serviceID << " " << obj.feedback
-        << " " << obj.isBooked << " " << obj.isPerfect;
+        << " " << obj.serviceID << " "<< obj.feedback
+        << " " << obj.isBooked;
     return os;
 }
 istream& operator>>(istream& is,serviceDone& obj){
     is >> obj.serviceDoneID >> obj.customerID >> obj.workerID
-        >> obj.serviceID >> obj.feedback >> obj.isBooked >> obj.isPerfect;
+        >> obj.serviceID;
+    char quote;
+    is>>quote;
+    getline(is,obj.feedback,'"');
+    obj.feedback = "\"" + obj.feedback + "\"";
+    is >> obj.isBooked;
     return is;
 }
 
