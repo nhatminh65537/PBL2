@@ -22,10 +22,10 @@ serviceDone::serviceDone(const string& serviceDoneID, const string& customerID,c
     this->isBooked = isBooked;
 }
 
-serviceDone::~serviceDone()
-{
+serviceDone::~serviceDone(){
     //dtor
 }
+
 
 void serviceDone::SetID(const string& id){
     this->serviceDoneID = id;

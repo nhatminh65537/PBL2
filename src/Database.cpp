@@ -1,7 +1,6 @@
 #include "Database.h"
 #include "serviceDone.h"
 #include <iostream>
-#include <string>
 #include <fstream>
 #include <algorithm>
 
@@ -11,7 +10,7 @@ template class Database<serviceDone>;
 
 template<typename T>
 Database<T>::Database(const string& path) : path(path) {
-    this->_list = ReadAll();
+    ReadAll(this->_list);
     initAttributeMap();
 }
 
@@ -20,31 +19,19 @@ Database<T>::~Database() {
     this->Save();
 }
 
-template<typename T>
-const T& Database<T>::operator[](const string& id){
-    int idx = this->Search(id);
-    if (idx==-1){
-        cerr << "Index not found!\n";
-        exit(1);
-    }
-    return this->_list[idx];
-}
 
 template<typename T>
-vector<T> Database<T>::ReadAll(){
+void Database<T>::ReadAll(map<string,T>& _list){
     ifstream inputFile(this->path.c_str(), ios::in);
     if (!inputFile.is_open()) {
         cerr << "File " << this->path << " not found!";
         exit(1);
     }
-    vector<T>_list;
     T tempObject;
     while (inputFile >> tempObject) {
-        _list.push_back(tempObject);
+        _list[tempObject.GetID()] = tempObject;
     }
     inputFile.close();
-    sort(_list.begin(),_list.end());
-    return _list;
 }
 
 template<typename T>
@@ -54,54 +41,54 @@ void Database<T>::Save() {
         cerr << "File " << this->path << " not found!";
         exit(1);
     }
-    sort(this->_list.begin(),this->_list.end());
-    for (const T& obj : this->_list){
-        outputFile << obj << '\n';
+    for (const auto& it : this->_list){
+        outputFile << it.second << '\n';
     }
     outputFile.close();
 }
 
 template<typename T>
 void Database<T>::Update(const string& ID,const T& newObj){
-    int idx = this->Search(ID);
-    if (idx == -1) return;
-    this->_list[idx] = newObj;
+    if (newObj.GetID() != ID){
+        cerr << ID << " does not exists in database\n";
+        exit(1);
+    }
+    this->_list[ID] = newObj;
 }
 
 template<typename T>
 void Database<T>::Update(const string& ID,const string& attributeName, const string& newVal){
-    int idx = this->Search(ID);
-    if (idx == -1){
-        cerr << "ID not found!\n";
-        return;
+    if (this->_list.find(ID) == this->_list.end()){
+        cerr << ID << " does not exists in database\n";
+        exit(1);
     }
-    if (attributeMap.find(attributeName) == attributeMap.end()){
-        cerr << "Attribute not found!\n";
-        return;
-    }
-    attributeMap[attributeName](this->_list[idx],newVal);
+    this->attributeMap[attributeName](this->_list[ID],newVal);
 }
 
 template<typename T>
-void Database<T>::Append(const T& content) {
-    this->_list.push_back(content);
+void Database<T>::Append(const T& obj) {
+    // If object is already in map
+    if (this->_list.find(obj.GetID()) != this->_list.end()){
+        cerr << obj.GetID() << " already exists\n";
+        exit(1);
+    }
+    this->_list[obj.GetID()] = obj;
 }
 
 template<typename T>
-int Database<T>::Search(const string& searchID){
-    int lo = 0,hi = this->Count()-1;
-    while (lo <= hi){
-        int mid = (lo+hi)/2;
-        if (this->_list[mid].GetID() == searchID) return mid;
-        else if (this->_list[mid].GetID() < searchID) lo = mid+1;
-        else hi = mid-1;
+void Database<T>::Delete(const string& id){
+    // If object does not exist in map
+    if (this->_list.find(id) == this->_list.end()){
+        cerr << id << " does not exist\n";
+        exit(1);
     }
-    return -1;
+    this->_list.erase(id);
 }
+
 template<typename T>
-void Database<T>::Show(){
-    for (int i = 0;i < this->_list.size();++i){
-        cout << this->_list[i] << '\n';
+void Database<T>::Show() const {
+    for (const auto& it : this->_list){
+        cout << it.second << '\n';
     }
 }
 
@@ -129,3 +116,4 @@ void Database<serviceDone>::initAttributeMap(){
         obj.SetFeedBack('"' + newVal + '"'); // Thêm 2 dấu " ở đầu và cuối để phân biệt feedback với các phần khác
     };
 }
+

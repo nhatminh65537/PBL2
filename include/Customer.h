@@ -1,9 +1,13 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
+#include <vector>
+#include <string>
+#include "Appointment.h"
+#include "Member.h"
 
+using namespace std;
 
-class Customer
-{
+class Customer : public Member {
     public:
         Customer();
         ~Customer();
@@ -11,6 +15,7 @@ class Customer
     protected:
 
     private:
+        vector<Appointment>_list;
 
 };
 
