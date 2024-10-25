@@ -10,8 +10,7 @@ using namespace std;
 template class Database<serviceDone>;
 
 template<typename T>
-Database<T>::Database(const string& path) {
-    this->path = path;
+Database<T>::Database(const string& path) : path(path) {
     this->_list = ReadAll();
     initAttributeMap();
 }
@@ -22,7 +21,17 @@ Database<T>::~Database() {
 }
 
 template<typename T>
-vector<T> Database<T>::ReadAll() {
+const T& Database<T>::operator[](const string& id){
+    int idx = this->Search(id);
+    if (idx==-1){
+        cerr << "Index not found!\n";
+        exit(1);
+    }
+    return this->_list[idx];
+}
+
+template<typename T>
+vector<T> Database<T>::ReadAll(){
     ifstream inputFile(this->path.c_str(), ios::in);
     if (!inputFile.is_open()) {
         cerr << "File " << this->path << " not found!";
@@ -80,7 +89,7 @@ void Database<T>::Append(const T& content) {
 
 template<typename T>
 int Database<T>::Search(const string& searchID){
-    int lo = 0,hi = this->Count();
+    int lo = 0,hi = this->Count()-1;
     while (lo <= hi){
         int mid = (lo+hi)/2;
         if (this->_list[mid].GetID() == searchID) return mid;
@@ -117,8 +126,8 @@ void Database<serviceDone>::initAttributeMap(){
     attributeMap["serviceID"    ] = [](serviceDone& obj, const string& newVal){
         obj.SetServiceID(newVal);
     };
-    attributeMap["feedback"     ] = [](serviceDone& obj, const string& newVal){
-        obj.SetFeedBack(newVal);
+    attributeMap["feedback"] = [](serviceDone& obj,const string& newVal){
+        obj.SetFeedBack('"' + newVal + '"'); // Thêm 2 dấu " ở đầu và cuối để phân biệt feedback với các phần khác
     };
 }
 
