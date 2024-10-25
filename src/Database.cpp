@@ -101,22 +101,24 @@ int Database<T>::Count(){
     return this->_list.size();
 }
 
+
 template<>
 void Database<serviceDone>::initAttributeMap(){
     // lambda function
-    attributeMap["serviceDoneID"] = [](serviceDone& obj,const string& newVal){
+    attributeMap["serviceDoneID"] = [](serviceDone& obj, const string& newVal){
         obj.SetID(newVal);
     };
-    attributeMap["customerID"] = [](serviceDone& obj,const string& newVal){
+    attributeMap["customerID"   ] = [](serviceDone& obj, const string& newVal){
         obj.SetCustomerID(newVal);
     };
-    attributeMap["workerID"] = [](serviceDone& obj,const string& newVal){
+    attributeMap["workerID"     ] = [](serviceDone& obj, const string& newVal){
         obj.SetWorkerID(newVal);
     };
-    attributeMap["serviceID"] = [](serviceDone& obj,const string& newVal){
+    attributeMap["serviceID"    ] = [](serviceDone& obj, const string& newVal){
         obj.SetServiceID(newVal);
     };
-    attributeMap["feedback"] = [](serviceDone& obj,const string& newVal){
+    attributeMap["feedback"     ] = [](serviceDone& obj, const string& newVal){
         obj.SetFeedBack(newVal);
     };
 }
+
