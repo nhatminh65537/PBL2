@@ -1,5 +1,9 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
+#include <vector>
+#include <string>
+#include "Appointment.h"
+#include "Member.h"
 
 #include "Member.h"
 #include "Appointment.h"
@@ -15,7 +19,8 @@ class Customer: public Member
     protected:
 
     private:
-        vector<Appointment> appointmentList;
+        vector<Appointment>_list;
+
 };
 
 #endif // CUSTOMER_H

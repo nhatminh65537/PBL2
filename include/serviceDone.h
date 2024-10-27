@@ -13,9 +13,6 @@ class serviceDone : public Identifiable
         serviceDone(const string& serviceDoneID, const string& customerID,const string& workerID,
                     const string& serviceID,const string& feedback,const bool& isBooked);
         ~serviceDone();
-        friend ostream& operator<<(ostream& os,const serviceDone& obj);
-        friend istream& operator>>(istream& is,serviceDone& obj);
-        friend bool operator<(const serviceDone& a,const serviceDone& b);
         const string& GetID() const override;
         void SetID(const string&) override;
         const string& GetCustomerID() const;
@@ -26,7 +23,10 @@ class serviceDone : public Identifiable
         void SetServiceID(const string&);
         const string& GetFeedBack() const;
         void SetFeedBack(const string&);
-        void Show();
+
+        friend ostream& operator<<(ostream& os,const serviceDone& obj);
+        friend istream& operator>>(istream& is,serviceDone& obj);
+        friend bool operator<(const serviceDone& a,const serviceDone& b);
     protected:
 
     private:
@@ -35,7 +35,6 @@ class serviceDone : public Identifiable
         string workerID;
         string serviceID;
         string feedback;
-        // Try using alternative for these.
         bool isBooked;
         //Datetime time;
 };

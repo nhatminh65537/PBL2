@@ -10,20 +10,20 @@ class Member : public Identifiable {
         Member();
         virtual ~Member();
 
-        string getfirstName();
-        void setfirstName(const string& val);
-        string getlastName();
-        void setlastName(const string& val);
-        bool getgender();
-        void setgender(const bool& val);
-        int getage();
-        void setage(const int& val);
-        string getphoneNumber();
-        void setphoneNumber(const string& val);
-        string getusername();
-        void setusername(const string& val);
-        string getpassword();
-        void setpassword(const string& val);
+        string GetFirstName();
+        void SetFirstName(const string& val);
+        string GetLastName();
+        void SetLastName(const string& val);
+        bool GetGender();
+        void SetGender(const bool& val);
+        int GetAge();
+        void SetAge(const int& val);
+        string GetPhoneNumber();
+        void SetPhoneNumber(const string& val);
+        string GetUserName();
+        void SetUserName(const string& val);
+        string GetPassword();
+        void SetPassword(const string& val);
 
     protected:
 
