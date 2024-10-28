@@ -3,6 +3,8 @@
 #include <time.h>
 using namespace std;
 
+#define BETWEEN(x, a, b) ((x) >= (a) && (x) <= (b))
+
 bool operator==(const DateTime& lhs, const DateTime& rhs) {
     return lhs.year == rhs.year && lhs.month == rhs.month && lhs.day == rhs.day && lhs.hour == rhs.hour && lhs.minute == rhs.minute;
 }
@@ -41,12 +43,14 @@ const string& DateTime::toString() const {
     return str;
 }
 
+bool _isLeapYear(int year) {
+    return (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0);
+}
+
 bool DateTime::validate(int year, int month, int day, int hour, int minute) {
-    if (year < 0 || month < 1 || month > 12 || day < 1 || day > 31 || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
-        return false;
-    }
+    if (!BETWEEN(year, 0, 9999) || !BETWEEN(month, 1, 12) || !BETWEEN(day, 1, 31) || !BETWEEN(hour, 0, 23) || !BETWEEN(minute, 0, 59)) return false;
     if (month == 2) {
-        if ((year % 4 == 0) && (year % 100 != 0 || year % 400 == 0)) {
+        if (_isLeapYear(year)) {
             if (day > 29) return false;
         } else {
             if (day > 28) return false;
