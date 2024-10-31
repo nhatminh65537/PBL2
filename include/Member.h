@@ -8,6 +8,7 @@ using namespace std;
 class Member : public Identifiable {
     public:
         Member();
+        Member(const string& firstName, const string& lastName, bool gender, int age, const string& phoneNumber, const string& username, const string& password);
         virtual ~Member();
 
         string GetFirstName();

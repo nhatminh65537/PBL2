@@ -6,3 +6,4 @@ UILIB/log*
 UILIB/*.exe
 UILIB/demo*
 UILIB
+.vscode/*.json

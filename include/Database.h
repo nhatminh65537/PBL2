@@ -26,7 +26,7 @@ class Database
         void ReadAll(map<string,T>& ); // Return reference to _list, to reduce time complexity
         void Save();
         const string path;
-        map<string,T>_list;
+        map<string,T>_list; // string mean id?
         map<string,function<void(T&,const string&)>>attributeMap; // Function map used for update function
         void initAttributeMap();
 };

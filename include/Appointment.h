@@ -24,7 +24,7 @@ class Appointment
         string requirement;
         DateTime appointmentTime;
     public:
-        Appointment(const string& customerID, const vector <service>& seviceList, const string& requirement, const DateTime& appointmentTime);
+        Appointment(const string& appointmentID, const string& customerID, const vector <service>& seviceList, const string& requirement, const DateTime& appointmentTime);
 
         // setter and getter
         void setAppointmentID(const string& appointmentID) { this->appointmentID = appointmentID; }
