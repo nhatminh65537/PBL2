@@ -1,6 +1,0 @@
-# de chay ma unicode tren powershell
-$OutputEncoding = [Console]::InputEncoding = [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding
-# build test
-make
-# run test
-./test
